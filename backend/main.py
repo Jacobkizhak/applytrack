@@ -84,7 +84,12 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://applytrack-frontend-jacob.s3-website.ca-central-1.amazonaws.com",
+    "https://d2kxy3v5k8g8qh.cloudfront.net",
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

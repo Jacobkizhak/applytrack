@@ -24,3 +24,6 @@ frontend/dist/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# AWS deployment package
+backend/*.zip

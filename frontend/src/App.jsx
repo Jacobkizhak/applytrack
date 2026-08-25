@@ -26,7 +26,7 @@ function App() {
   const [analyzing, setAnalyzing] = useState(false)
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/applications')
+    fetch('https://d1u01w5wr0u1g8.cloudfront.net/applications')
       .then((response) => response.json())
       .then((data) => setApplications(data))
       .catch((error) =>
@@ -86,7 +86,7 @@ function App() {
     try {
       if (editingId !== null) {
         const response = await fetch(
-          `http://127.0.0.1:8000/applications/${editingId}`,
+          `https://d1u01w5wr0u1g8.cloudfront.net/applications/${editingId}`,
           {
             method: 'PUT',
             headers: {
@@ -111,7 +111,7 @@ function App() {
         )
       } else {
         const response = await fetch(
-          'http://127.0.0.1:8000/applications',
+          'https://d1u01w5wr0u1g8.cloudfront.net/applications',
           {
             method: 'POST',
             headers: {
@@ -139,7 +139,7 @@ function App() {
   async function handleDelete(id) {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/applications/${id}`,
+        `https://d1u01w5wr0u1g8.cloudfront.net/applications/${id}`,
         {
           method: 'DELETE',
         }
@@ -165,7 +165,7 @@ function App() {
 
     try {
       const response = await fetch(
-        'http://127.0.0.1:8000/resume-match',
+        'https://d1u01w5wr0u1g8.cloudfront.net/resume-match',
         {
           method: 'POST',
           headers: {
