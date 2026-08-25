@@ -80,81 +80,38 @@ function App() {
     }, 100)
   }
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault()
 
-    try {
-      if (editingId !== null) {
-        const response = await fetch(
-          `https://d1u01w5wr0u1g8.cloudfront.net/applications/${editingId}`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          }
+    if (editingId !== null) {
+      setApplications(
+        applications.map((application) =>
+          application.id === editingId
+            ? {
+                ...application,
+                ...formData,
+              }
+            : application
         )
-
-        if (!response.ok) {
-          throw new Error('Failed to update application')
-        }
-
-        const updatedApplication = await response.json()
-
-        setApplications(
-          applications.map((application) =>
-            application.id === editingId
-              ? updatedApplication
-              : application
-          )
-        )
-      } else {
-        const response = await fetch(
-          'https://d1u01w5wr0u1g8.cloudfront.net/applications',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          }
-        )
-
-        if (!response.ok) {
-          throw new Error('Failed to create application')
-        }
-
-        const newApplication = await response.json()
-
-        setApplications([...applications, newApplication])
+      )
+    } else {
+      const newApplication = {
+        id: `demo-${Date.now()}`,
+        ...formData,
       }
 
-      resetForm()
-    } catch (error) {
-      console.error('Error saving application:', error)
+      setApplications([...applications, newApplication])
     }
+
+    resetForm()
   }
 
-  async function handleDelete(id) {
-    try {
-      const response = await fetch(
-        `https://d1u01w5wr0u1g8.cloudfront.net/applications/${id}`,
-        {
-          method: 'DELETE',
-        }
+  function handleDelete(id) {
+    setApplications(
+      applications.filter(
+        (application) => application.id !== id
       )
-
-      if (response.ok) {
-        setApplications(
-          applications.filter(
-            (application) => application.id !== id
-          )
-        )
-      }
-    } catch (error) {
-      console.error('Error deleting application:', error)
-    }
+    )
   }
 
   async function handleResumeMatch(event) {
